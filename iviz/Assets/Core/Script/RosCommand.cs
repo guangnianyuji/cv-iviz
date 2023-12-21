@@ -24,6 +24,14 @@ namespace Iviz.Core
         }
     }
 
+    public class RosKillCommand : RosCommand 
+    {
+        public RosKillCommand()
+        {
+            command = "kill";
+        }
+    }
+
     public class RosConnector
     {
         private static RosConnector instance;

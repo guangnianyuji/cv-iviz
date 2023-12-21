@@ -22,6 +22,8 @@ namespace Iviz.Core
         private NetworkStream stream;
 
         private TcpClient client;
+
+        public GameObject killButton;
         void Start()
         {
             GetComponent<Button>().onClick.AddListener(ButtonClick);
@@ -100,9 +102,6 @@ namespace Iviz.Core
                 
             });
             buildpanel.SetActive(false);
-
-
-
 
         }
     }
