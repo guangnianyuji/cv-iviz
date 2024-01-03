@@ -8,7 +8,7 @@ using System.Text;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Iviz.Core
+namespace Iviz.App
 {
     public class ROSLaunch : MonoBehaviour
     {
@@ -23,10 +23,12 @@ namespace Iviz.Core
 
         private TcpClient client;
 
-        public GameObject killButton;
+        public GameObject upperPanel;
         void Start()
         {
             GetComponent<Button>().onClick.AddListener(ButtonClick);
+            ModuleListPanel p = ModuleListPanel.TryGetInstance();
+            p.setDisconnected();
         }
 
         // Update is called once per frame
@@ -93,7 +95,13 @@ namespace Iviz.Core
             if (id == 0)
             {
                 //"roslaunch cartographer_ros demo_backpack_3d.launch bag_filename:=${HOME}/Downloads/b3-2016-04-05-14-14-00.bag";
-                command.bagName = "b3-2016-04-05-14-14-00";
+                command.bagName = "3D";
+            }else if (id == 1)
+            {
+                command.bagName = "2D";
+            }else if(id == 2)
+            {
+                command.bagName = "taurob_tracker_simulation";
             }
 
             Task a = Task.Run(async () =>
@@ -101,8 +109,17 @@ namespace Iviz.Core
                 await RosConnector.get().sendCommandAsync(command);
                 
             });
-            buildpanel.SetActive(false);
+            ModuleListPanel p = ModuleListPanel.TryGetInstance();
 
+            string[] s = server_str.Split('.');
+            s[s.Length - 1] = "1";
+            string myUrlStr = string.Join(".", s);
+
+            p.setUrl(new System.Uri("http://" + server_str + ":11311/"), new System.Uri("http://" + myUrlStr + ":7613/"));
+            p.setConnected();
+
+            buildpanel.SetActive(false);
+            upperPanel.SetActive(true);
         }
     }
 }

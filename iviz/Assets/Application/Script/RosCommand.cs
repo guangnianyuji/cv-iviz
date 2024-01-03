@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Iviz.Core
+namespace Iviz.App
 {
     public class RosCommand
     {

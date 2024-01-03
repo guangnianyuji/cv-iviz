@@ -8,17 +8,16 @@ using System.Text;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Iviz.Core
+namespace Iviz.App
 {
     public class KillBuild : MonoBehaviour
     {
-        public GameObject killButton;
+        public GameObject upperPanel;
         public GameObject startButton;
         // Start is called before the first frame update
         void Start()
         {
             GetComponent<Button>().onClick.AddListener(ButtonClick);
-            killButton.SetActive(false);
         }
 
         // Update is called once per frame
@@ -34,8 +33,11 @@ namespace Iviz.Core
             {
                 await RosConnector.get().sendCommandAsync(command); 
             });
-            killButton.SetActive(false);
+            ModuleListPanel p = ModuleListPanel.TryGetInstance();
+            p.setDisconnected();
+            upperPanel.SetActive(false);
             startButton.SetActive(true);
+            
         }
     }
 }

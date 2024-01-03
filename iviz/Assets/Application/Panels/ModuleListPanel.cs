@@ -134,6 +134,24 @@ namespace Iviz.App
         public IReadOnlyCollection<ModuleData> ModuleDatas => moduleDatas;
         public IEnumerable<string> DisplayedTopics => topicsWithModule;
 
+        public void setDisconnected()
+        {
+            Connection.Disconnect();
+            KeepReconnecting = false;
+        }
+
+        public void setConnected()
+        {
+            KeepReconnecting = true;
+        }
+
+        public void setUrl(Uri masterUri, Uri myUri)
+        {
+            var connectionData = Dialogs.ConnectionData;
+            connectionData.MasterUri = masterUri;
+            connectionData.MyUri = myUri;
+        }
+
         public bool AllGuiVisible
         {
             get => allGuiVisible;
