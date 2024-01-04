@@ -111,11 +111,7 @@ namespace Iviz.App
             });
             ModuleListPanel p = ModuleListPanel.TryGetInstance();
 
-            string[] s = server_str.Split('.');
-            s[s.Length - 1] = "1";
-            string myUrlStr = string.Join(".", s);
-
-            p.setUrl(new System.Uri("http://" + server_str + ":11311/"), new System.Uri("http://" + myUrlStr + ":7613/"));
+            p.setUrl(new System.Uri("http://" + server_str + ":11311/"), new System.Uri("http://127.0.0.1:7613/"));
             p.setConnected();
 
             buildpanel.SetActive(false);
